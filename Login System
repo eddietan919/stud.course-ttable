@@ -1,0 +1,95 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+class User
+{
+public:
+	virtual void reg() = 0;	//pure virtual function of the function void reg()
+};
+
+class User2 : public User
+{
+public:
+	string username, password, un, pw; //variables declaration 
+public:
+	void reg()
+	{
+		cout << "Please select a username:" << endl;
+		cin >> username;
+		cout << "Please select a password:" << endl;
+		cin >> password;
+
+		ofstream file;
+		file.open("d:\\" + username + ".txt");
+		file << username << endl << password;
+		file.close();
+	}
+	// create file that matches the characters which are created using the codes above and save it in d drive 
+
+	bool LoggingIn()
+	{
+		cout << "Please enter your username:" << endl;
+		cin >> username;
+		cout << "Please enter your password:" << endl;
+		cin >> password;
+
+		ifstream read("d:\\" + username + ".txt");
+		getline(read, un);
+		getline(read, pw);
+		//open the file by matching the characters that were created before
+		if (un == username && pw == password)
+		{
+			return true;
+		}
+		else if (un != username || pw != password)
+		{
+			cout << endl;
+			return false;
+		}
+		// return true or false value depending if the character key in matches the characters created
+	}
+};
+
+int main()
+{
+	int choice;
+	User2 a;//declare "a" as the object by using class User2
+
+	cout << "1. Register" << endl;
+	cout << "2. Log in" << endl;
+	cin >> choice;
+
+	//choices of 1 or 2 is given to prompt user to register or log in
+
+	if (choice == 1)
+	{
+		a.reg();//call to function reg() in class User
+		return main();//reboot the programme after registered
+	}
+	else if (choice == 2)
+	{
+		bool status = a.LoggingIn();//declaring status to read true and false value
+
+		if (!status)
+		{
+			cout << "You are not yet registered!" << endl;
+			system("PAUSE");
+			return main()
+		}
+		// if status is false, an error message will comes out and reboot the programme
+
+		else
+		{
+			cout << "Successfully logged in!" << endl;
+			system("PAUSE");
+			return 1;
+		}
+		// if the status is true, the programme proceed with the message above and return to 0
+	}
+
+	system("PAUSE");
+	return 0;
+}
