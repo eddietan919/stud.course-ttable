@@ -174,7 +174,7 @@ void input()
 		//loop for user key in subjects' name and their credit hour(s)
 		for (j = 0; j < co[i].totsub; j++)
 		{
-			cout << "Please enter subject's name :" << endl;
+			cout << "Please enter subject's code :" << endl;
 			cin >> co[i].subject[j];
 
 			cout << "Please enter subject credit :" << endl;
